@@ -1,0 +1,34 @@
+{
+  "Records": [
+    {
+      "eventID": "a6cd90a7b75bbdff3aeadb34fe63a725",
+      "eventName": "MODIFY",
+      "eventVersion": "1.1",
+      "eventSource": "aws:dynamodb",
+      "awsRegion": "eu-west-1",
+      "dynamodb": {
+        "ApproximateCreationDateTime": 1680467512,
+        "Keys": {
+          "id": {
+            "S": "EXCLUDED_USERS"
+          }
+        },
+        "NewImage": {
+          "excludedUsers": {
+            "L": []
+          },
+          "lastUpdatedAt": {
+            "S": "2023-04-02T20:31:52.486Z"
+          },
+          "id": {
+            "S": "EXCLUDED_USERS"
+          }
+        },
+        "SequenceNumber": "711500000000019011928559",
+        "SizeBytes": 85,
+        "StreamViewType": "NEW_IMAGE"
+      },
+      "eventSourceARN": "arn:aws:dynamodb:eu-west-1:123456789012:table/auto-access-rem-excluded-users/stream/2023-04-02T15:22:37.247"
+    }
+  ]
+}

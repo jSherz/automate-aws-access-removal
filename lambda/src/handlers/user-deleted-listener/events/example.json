@@ -1,0 +1,55 @@
+{
+  "cold_start": false,
+  "function_arn": "arn:aws:lambda:eu-west-1:123456789012:function:auto-access-rem-user-disabled-listener",
+  "function_memory_size": 256,
+  "function_name": "auto-access-rem-user-disabled-listener",
+  "function_request_id": "8572f0c0-c537-4bdf-b9c1-d0d65690bde8",
+  "level": "INFO",
+  "message": "Lambda invocation event",
+  "service": "automate-aws-access-removal",
+  "timestamp": "2023-04-08T15:36:56.785Z",
+  "xray_trace_id": "1-64318a18-6afe37a6709be2e446c07990",
+  "region": "eu-west-1",
+  "executionEnv": "AWS_Lambda_nodejs18.x",
+  "event": {
+    "version": "0",
+    "id": "6b723911-eeb0-80f9-cf88-ea8d61e7c583",
+    "detail-type": "AWS API Call via CloudTrail",
+    "source": "aws.sso-directory",
+    "account": "123456789012",
+    "time": "2023-04-08T15:36:49Z",
+    "region": "eu-west-1",
+    "resources": [],
+    "detail": {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "Unknown",
+        "accountId": "123456789012",
+        "accessKeyId": "c5b559a7-3c64-48cd-8f0b-98eae5d7c855"
+      },
+      "eventTime": "2023-04-08T15:36:49Z",
+      "eventSource": "sso-directory.amazonaws.com",
+      "eventName": "DisableUser",
+      "awsRegion": "eu-west-1",
+      "sourceIPAddress": "123.123.123.123",
+      "userAgent": "PostmanRuntime/7.26.8",
+      "requestParameters": {
+        "identityStoreId": "d-93670dc30f",
+        "userId": "93670dc30f-6d321996-eab8-4d2e-9f41-0db53b051a5b"
+      },
+      "responseElements": null,
+      "requestID": "dfe2800f-9980-4358-9cab-4fb81b20e62b",
+      "eventID": "02ff70e0-d0ac-4284-bb43-7166c247bd52",
+      "readOnly": false,
+      "eventType": "AwsApiCall",
+      "managementEvent": true,
+      "recipientAccountId": "123456789012",
+      "eventCategory": "Management",
+      "tlsDetails": {
+        "tlsVersion": "TLSv1.2",
+        "cipherSuite": "ECDHE-RSA-AES128-GCM-SHA256",
+        "clientProvidedHostHeader": "up.sso.eu-west-1.amazonaws.com"
+      }
+    }
+  }
+}
