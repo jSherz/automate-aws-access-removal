@@ -1,9 +1,3 @@
-module "lambda_packages_bucket" {
-  source = "./modules/s3-bucket"
-
-  name = "automate-aws-access-removal-${data.aws_caller_identity.this.account_id}-${data.aws_region.this.name}"
-}
-
 resource "aws_xray_sampling_rule" "this" {
   rule_name      = "automate-aws-access-removal"
   fixed_rate     = 1 # 100%
@@ -73,12 +67,11 @@ resource "aws_cloudwatch_event_rule" "delete_user" {
 module "user_deleted_listener" {
   source = "./modules/lambda-function"
 
-  name             = "${var.prefix}-user-deleted-listener"
-  description      = "Called when Identity Center users are updated with a PATCH or PUT operation."
-  s3_bucket        = module.lambda_packages_bucket.name
-  s3_key           = var.lambdas["user-deleted-listener"].s3_key
-  source_code_hash = var.lambdas["user-deleted-listener"].source_code_hash
-  iam_policy       = data.aws_iam_policy_document.identity_center_event_listeners.json
+  name              = "${var.prefix}-user-deleted-listener"
+  description       = "Called when Identity Center users are updated with a PATCH or PUT operation."
+  entrypoint        = "../lambda/src/handlers/user-deleted-listener/index.ts"
+  working_directory = "../lambda"
+  iam_policy        = data.aws_iam_policy_document.identity_center_event_listeners.json
 
   event_rule_arns = {
     "delete-user" : aws_cloudwatch_event_rule.delete_user.arn,
@@ -105,12 +98,11 @@ resource "aws_cloudwatch_event_rule" "disable_user" {
 module "user_disabled_listener" {
   source = "./modules/lambda-function"
 
-  name             = "${var.prefix}-user-disabled-listener"
-  description      = "Called when Identity Center users are disabled."
-  s3_bucket        = module.lambda_packages_bucket.name
-  s3_key           = var.lambdas["user-disabled-listener"].s3_key
-  source_code_hash = var.lambdas["user-disabled-listener"].source_code_hash
-  iam_policy       = data.aws_iam_policy_document.identity_center_event_listeners.json
+  name              = "${var.prefix}-user-disabled-listener"
+  description       = "Called when Identity Center users are disabled."
+  entrypoint        = "../lambda/src/handlers/user-disabled-listener/index.ts"
+  working_directory = "../lambda"
+  iam_policy        = data.aws_iam_policy_document.identity_center_event_listeners.json
 
   event_rule_arns = {
     "disable-user" : aws_cloudwatch_event_rule.disable_user.arn,
@@ -137,12 +129,11 @@ resource "aws_cloudwatch_event_rule" "enable_user" {
 module "user_enabled_listener" {
   source = "./modules/lambda-function"
 
-  name             = "${var.prefix}-user-enabled-listener"
-  description      = "Called when Identity Center users are enabled."
-  s3_bucket        = module.lambda_packages_bucket.name
-  s3_key           = var.lambdas["user-enabled-listener"].s3_key
-  source_code_hash = var.lambdas["user-enabled-listener"].source_code_hash
-  iam_policy       = data.aws_iam_policy_document.identity_center_event_listeners.json
+  name              = "${var.prefix}-user-enabled-listener"
+  description       = "Called when Identity Center users are enabled."
+  entrypoint        = "../lambda/src/handlers/user-enabled-listener/index.ts"
+  working_directory = "../lambda"
+  iam_policy        = data.aws_iam_policy_document.identity_center_event_listeners.json
 
   event_rule_arns = {
     "enable-user" : aws_cloudwatch_event_rule.enable_user.arn,
@@ -157,12 +148,11 @@ module "user_enabled_listener" {
 module "excluded_users_listener" {
   source = "./modules/lambda-function"
 
-  name             = "${var.prefix}-excluded-users-listener"
-  description      = "Called when the excluded users are updated in the DynamoDB table."
-  s3_bucket        = module.lambda_packages_bucket.name
-  s3_key           = var.lambdas["excluded-users-listener"].s3_key
-  source_code_hash = var.lambdas["excluded-users-listener"].source_code_hash
-  iam_policy       = data.aws_iam_policy_document.identity_center_event_listeners.json
+  name              = "${var.prefix}-excluded-users-listener"
+  description       = "Called when the excluded users are updated in the DynamoDB table."
+  entrypoint        = "../lambda/src/handlers/excluded-users-listener/index.ts"
+  working_directory = "../lambda"
+  iam_policy        = data.aws_iam_policy_document.identity_center_event_listeners.json
 
   env_vars = {
     TABLE_NAME      = aws_dynamodb_table.excluded_users.name

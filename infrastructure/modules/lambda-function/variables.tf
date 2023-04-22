@@ -14,21 +14,6 @@ variable "memory_size" {
   default     = 256
 }
 
-variable "s3_bucket" {
-  type        = string
-  description = "Bucket containing the zipped Lambda package."
-}
-
-variable "s3_key" {
-  type        = string
-  description = "Zipped Lambda package file in var.s3_bucket."
-}
-
-variable "source_code_hash" {
-  type        = string
-  description = "Hash of the zipped Lambda package in var.s3_key."
-}
-
 variable "iam_policy" {
   type        = string
   description = "IAM policy to attach to the function."
@@ -50,4 +35,14 @@ variable "env_vars" {
   type        = map(string)
   description = "Environment variables for the function."
   default     = {}
+}
+
+variable "entrypoint" {
+  type        = string
+  description = "Full path to Lambda function entrypoint, e.g. index.ts"
+}
+
+variable "working_directory" {
+  type        = string
+  description = "Typically the folder containing the package.json at the root of your Lambda project."
 }

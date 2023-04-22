@@ -7,32 +7,10 @@ when they leave your workplace. See the [blog post on jSherz.com].
 
 ## Getting started
 
-This project requires an S3 bucket to store Lambda packages. This must be
-created before the Terraform portion can be fully applied:
+Install dependencies in the Lambda project:
 
 ```bash
-# Configure AWS credentials however you like
-export AWS_PROFILE=...
-aws sso login
-
-cd infrastructure
-
-# Optional: create a <name>.auto.tfvars file with the identity_store_id
-
-# Optional: setup Terraform remote state if you have a source to hand
-
-# Create the Lambda S3 bucket
-terraform init
-terraform apply \
-    -target module.lambda_packages_bucket \
-    -var identity_store_id=unused \
-    -var lambdas={}
-```
-
-With the bucket created, package the Lambda functions:
-
-```bash
-cd ../lambdas
+cd lambdas
 
 nvm use 18
 corepack enable
@@ -41,11 +19,12 @@ yarn install
 ./scripts/package.sh <account ID> <region>
 ```
 
-Return to the Terraform project and apply it all:
+Head to the Terraform project and apply it all:
 
 ```bash
 cd ../infrastructure
 
+terraform init
 terraform apply
 ```
 

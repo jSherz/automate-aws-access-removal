@@ -1,3 +1,19 @@
+data "node-lambda-packager_package" "this" {
+  args = [
+    "--bundle",
+    "--external:@aws-sdk*",
+    "--external:@aws-lambda-powertools*",
+    "--minify",
+    "--platform=node",
+    "--sourcemap",
+    "--target=es2021",
+    "--sourcemap=inline",
+  ]
+
+  entrypoint        = var.entrypoint
+  working_directory = var.working_directory
+}
+
 resource "aws_lambda_function" "this" {
   function_name    = var.name
   role             = aws_iam_role.this.arn
@@ -6,9 +22,8 @@ resource "aws_lambda_function" "this" {
   handler          = "index.handler"
   memory_size      = var.memory_size
   runtime          = "nodejs18.x"
-  s3_bucket        = var.s3_bucket
-  s3_key           = var.s3_key
-  source_code_hash = var.source_code_hash
+  filename         = data.node-lambda-packager_package.this.filename
+  source_code_hash = data.node-lambda-packager_package.this.source_code_hash
 
   reserved_concurrent_executions = var.reserved_concurrent_executions
 
