@@ -15,8 +15,6 @@ cd lambdas
 nvm use 18
 corepack enable
 yarn install
-
-./scripts/package.sh <account ID> <region>
 ```
 
 Head to the Terraform project and apply it all:
